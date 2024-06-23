@@ -10,18 +10,19 @@ class BasicConvClassifier(nn.Module):
         num_classes: int,
         seq_len: int,
         in_channels: int,
-        hid_dim: int = 128
+        hid_dim: int = 128,
+        p_drop: float = 0.1
     ) -> None:
         super().__init__()
 
         self.blocks = nn.Sequential(
-            ConvBlock(in_channels, hid_dim),
-            ConvBlock(hid_dim, hid_dim),
+            ConvBlock(in_channels, hid_dim,p_drop=p_drop),
+            ConvBlock(hid_dim, hid_dim,p_drop=p_drop),
         )
 
         self.head = nn.Sequential(
             nn.AdaptiveAvgPool1d(1),
-            Rearrange("b d 1 -> b d"),
+            Rearrange("b d 1 -> b d"), #batch, hid_dim, 1(sequential) -> batch, hid_dim
             nn.Linear(hid_dim, num_classes),
         )
 
