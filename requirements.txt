@@ -1,4 +1,8 @@
-torch==2.0.1
+#CUDA11.8に対応したtorchのインストールのurlを指定する。cudaのバージョンによって変更する必要がある。cuda使わない場合はfind-linksを削除する
+--find-links https://download.pytorch.org/whl/cu118/torch_stable.html
+
+numpy==1.26.4 #numpy2.0.0以上だと現在のところwandbが動かない
+torch==2.3.1
 torchaudio
 torchvision
 torchmetrics==0.11.4
