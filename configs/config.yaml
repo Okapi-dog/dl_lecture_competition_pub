@@ -1,8 +1,8 @@
-batch_size: 128
-epochs: 30
-lr: 0.001
+batch_size: 32
+epochs: 4
+lr: 0.0001
 hid_dim: 512
-p_drop: 0.3
+p_drop: 0.2
 
 device: cuda:0
 num_workers: 0
