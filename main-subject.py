@@ -71,7 +71,7 @@ def run(args: DictConfig):
         train_loss, train_acc, val_loss, val_acc = [], [], [], []
         
         model.train()
-        for X, y, subject_idxs,img_emb in tqdm(train_loader, desc="Train"):
+        for X, y, subject_idxs,_ in tqdm(train_loader, desc="Train"):
              # X.shape: torch.Size([271,281])なのは、(channel, time)の順番であることを示している.280は-100msから1300msまでのデータで、サンプリングレートは200Hzである
             X, y,subject_idxs = X.to(args.device), y.to(args.device),subject_idxs.to(args.device)
 

@@ -28,7 +28,7 @@ class BasicConvClassifier(nn.Module):
         
         #Blocks
         self.block1 = nn.Sequential(
-            ConvBlock(time_dim, reduced_time*4, p_drop=p_drop),
+            ConvBlock(num_subjects*time_dim, reduced_time*4, p_drop=p_drop),
             ConvBlock(reduced_time*4, reduced_time, p_drop=p_drop)
         )
         self.block2 = nn.Sequential(

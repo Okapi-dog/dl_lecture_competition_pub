@@ -28,21 +28,21 @@ class BasicConvClassifier(nn.Module):
         
         #Blocks
         self.block1 = nn.Sequential(
-            ConvBlock(num_img_emb*num_subjects, reduced_time*4, p_drop=p_drop),
-            ConvBlock(reduced_time*4, reduced_time, p_drop=p_drop)
+            ConvBlock(hid_dim*num_subjects, reduced_channel, p_drop=p_drop),
+            ConvBlock(reduced_channel, reduced_channel, p_drop=p_drop)
         )
         self.block2 = nn.Sequential(
-            ConvBlock(time_dim, reduced_channel*2, p_drop=p_drop),
-            ConvBlock(reduced_channel*2, reduced_channel, p_drop=p_drop)
+            ConvBlock(time_dim, reduced_time, p_drop=p_drop),
+            ConvBlock(reduced_time, reduced_time, p_drop=p_drop)
         )
         
         
         #End
         self.end = nn.Sequential(
+            nn.Dropout(p_drop),
             nn.Linear(reduced_time*reduced_channel, reduced_time*reduced_channel),
-            nn.Linear(reduced_time*reduced_channel, 2*num_classes),
-            nn.Linear(2*num_classes, num_classes),
-        )
+            nn.Linear(reduced_time*reduced_channel, num_classes)
+            )
 
     def forward(self, X, subject_id: torch.Tensor) -> torch.Tensor:
         """_summary_
